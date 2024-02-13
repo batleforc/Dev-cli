@@ -22,7 +22,7 @@ Long story short i would like to include in another submodule/cli close to this 
 
 ## Choice to be made
 
-- Rust or Golang ?
+- Rust or Golang ? (Most likely to be in rust)
 - Lib mode ? 
 
 
