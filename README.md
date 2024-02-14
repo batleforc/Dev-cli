@@ -4,7 +4,7 @@ The goal of this project is to provide a cli to hasten my dev process and to cre
 
 ## Eclipse Che
 
-Eclipse che is my main env that allow me to dev in my personal time (and i love it).
+Eclipse che is my main env that allow me to dev in my personal time (and i love it). This project is born from [this issue](https://github.com/eclipse/che/issues/22812) that follow my thinking process of loving project with source openly available.
 
 ### What do i need ?
 
@@ -14,6 +14,12 @@ Eclipse che is my main env that allow me to dev in my personal time (and i love 
 - List other container (in the current workspace or a choosen one) and if there is get the hability to open a shell inside
 - Quick connect my vscode to the workspaces (code --folder-uri "vscode-remote://k8s-container+context={CONTEXT NAME}+podname={Pod Name}+namespace={Namespace}+name={Container name}+image={Container image}{Path to open in the project}")
 - Quick connect Idea (jetbrains gateway) if handled by the workspaces
+
+### NotaBene
+
+- To detect DevSpace/Eclipse Che there is some env var that's available.
+![exemple](./doc/image/var-env-in-devspaces.png)
+- You can start/stop with a simple patch [Code Source](https://github.com/che-incubator/che-code/blob/6e0a908d58cacb380c216dde3af544d75e3913d5/code/extensions/che-api/src/impl/k8s-workspace-service-impl.ts#L62)
 
 ## Dockerfile templating
 
