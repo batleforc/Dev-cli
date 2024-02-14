@@ -15,16 +15,14 @@ Eclipse che is my main env that allow me to dev in my personal time (and i love 
 - Quick connect my vscode to the workspaces (code --folder-uri "vscode-remote://k8s-container+context={CONTEXT NAME}+podname={Pod Name}+namespace={Namespace}+name={Container name}+image={Container image}{Path to open in the project}")
 - Quick connect Idea (jetbrains gateway) if handled by the workspaces
 
-
 ## Dockerfile templating
 
 Long story short i would like to include in another submodule/cli close to this one (it's possible that in the futur i pop out this part) a module that would act has a component library who would output a Dockerfile including all your need. Atm i have made the batleforc/che-base that include the base tool that i deemed necessary and made some variant based on it including different tool (sdkman for a full java image, Rust and cargo for a rust variant, etc). BUT i may need in some case to reduce the size of those image (ATM less than 1Go).
 
-## Choice to be made
+##  Choice to be made
 
 - Rust or Golang ? (Most likely to be in rust)
-- Lib mode ? 
-
+- Lib mode ?
 
 ## What i want to lean
 
