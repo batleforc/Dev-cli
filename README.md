@@ -21,7 +21,7 @@ Eclipse che is my main env that allow me to dev in my personal time (and i love 
 ![exemple](./doc/image/var-env-in-devspaces.png)
 - You can start/stop with a simple patch [Code Source](https://github.com/che-incubator/che-code/blob/6e0a908d58cacb380c216dde3af544d75e3913d5/code/extensions/che-api/src/impl/k8s-workspace-service-impl.ts#L62)
 
-## Dockerfile templating
+## Dockerfile/DevFile templating
 
 Long story short i would like to include in another submodule/cli close to this one (it's possible that in the futur i pop out this part) a module that would act has a component library who would output a Dockerfile including all your need. Atm i have made the batleforc/che-base that include the base tool that i deemed necessary and made some variant based on it including different tool (sdkman for a full java image, Rust and cargo for a rust variant, etc). BUT i may need in some case to reduce the size of those image (ATM less than 1Go).
 
@@ -29,6 +29,12 @@ Long story short i would like to include in another submodule/cli close to this 
 
 - Rust or Golang ? (Most likely to be in rust)
 - Lib mode ?
+
+### Why rust ?
+
+Rust is my main language to learn atm. And i have lots of project that im currently doing and some capacity that this project bring will further improve those project.
+
+The choosen main lib is [clap - tutorial](https://docs.rs/clap/latest/clap/_derive/_tutorial/chapter_0/index.html) for the cli part and [kube](https://docs.rs/kube/latest/kube/index.html) for the kubernetes part.
 
 ## What i want to lean
 
