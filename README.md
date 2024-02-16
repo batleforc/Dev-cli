@@ -36,9 +36,10 @@ Rust is my main language to learn atm. And i have lots of project that im curren
 
 The choosen main lib is [clap - tutorial](https://docs.rs/clap/latest/clap/_derive/_tutorial/chapter_0/index.html) for the cli part and [kube](https://docs.rs/kube/latest/kube/index.html) for the kubernetes part.
 
-## What i want to lean
+## What i want to learn
 
 - Interact directly with the kubernetes api not throught the mainstream manifest
 - Know a lots more of my ide (VsCode) and whats really behind
 - Deep dive in my dev env (Eclipse Che)
 - Create a CI/CD that dont create Docker images but binary for different env (Do i publish the release on github or on a FS ?)
+- Sign commit and a fully fledged Changelog
