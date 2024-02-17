@@ -14,6 +14,7 @@ Eclipse che is my main env that allow me to dev in my personal time (and i love 
 - List other container (in the current workspace or a choosen one) and if there is get the hability to open a shell inside
 - Quick connect my vscode to the workspaces (code --folder-uri "vscode-remote://k8s-container+context={CONTEXT NAME}+podname={Pod Name}+namespace={Namespace}+name={Container name}+image={Container image}{Path to open in the project}")
 - Quick connect Idea (jetbrains gateway) if handled by the workspaces
+- Spawn a shell in one of the container in the workspaces <https://docs.rs/kube/latest/kube/struct.Api.html#method.exec>
 
 ### NotaBene
 
