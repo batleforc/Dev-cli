@@ -1,5 +1,7 @@
 use clap::Subcommand;
 
+use super::get;
+
 /// Handle the workspaces subcommand
 #[derive(Subcommand)]
 pub enum WorkSpaces {
@@ -35,4 +37,23 @@ pub enum WorkSpaces {
     },
     /// Get the info to open the workspace in Idea
     InfoIdea {},
+}
+
+impl WorkSpaces {
+    /// Run the subcommand
+    pub async fn run(&self) {
+        match self {
+            WorkSpaces::Get {} => get::get_current_workspace().await,
+            WorkSpaces::GetContainer {} => todo!(),
+            WorkSpaces::List {} => todo!(),
+            WorkSpaces::Set {} => todo!(),
+            WorkSpaces::Start {} => todo!(),
+            WorkSpaces::Stop {} => todo!(),
+            WorkSpaces::Restart {} => todo!(),
+            WorkSpaces::RestartLocal {} => todo!(),
+            WorkSpaces::Shell { name: _, shell: _ } => todo!(),
+            WorkSpaces::OpenVsCode { name: _ } => todo!(),
+            WorkSpaces::InfoIdea {} => todo!(),
+        }
+    }
 }

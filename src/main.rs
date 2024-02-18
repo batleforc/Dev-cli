@@ -1,7 +1,10 @@
 use clap::{Parser, Subcommand};
-use dev_cli::{trace::level::VerboseLevel, workspaces::command::WorkSpaces};
+use dev_cli::{
+    trace::{self, level::VerboseLevel},
+    workspaces::command::WorkSpaces,
+};
 use std::path::PathBuf;
-use tracing::Level;
+use tracing::{event, Level};
 
 #[derive(Parser)]
 #[command(name = "DevCli", about = "A simple cli to ease the dev process with EclipseChe/Devspaces", long_about = None, version)]
@@ -46,19 +49,27 @@ async fn main() {
             println!("Verbose is set to {:?}", level);
             level.into()
         }
-        _ => Level::ERROR,
+        _ => Level::INFO,
     };
+    trace::init::init_tracing(debug_level);
 
     match &cli.command {
         Some(Commands::Test { list }) => {
             if *list {
-                println!("Printing list");
+                event!(Level::INFO, "Printing list");
             } else {
-                println!("Not printing list");
+                event!(Level::INFO, "Not printing list");
             }
         }
-        &Some(Commands::Workspaces { .. }) => todo!(),
+        Some(Commands::Workspaces {
+            workspace,
+            config: _,
+        }) => {
+            if let Some(workspace) = workspace {
+                workspace.run().await;
+            }
+        }
 
-        None => println!("No subcommand"),
+        None => event!(Level::INFO, "No command provided"),
     }
 }
