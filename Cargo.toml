@@ -11,5 +11,6 @@ kube = "0.88.1"
 k8s-openapi = { version = "0.21.0", features = ["latest"] }
 tokio = { version = "1.36.0", features = ["macros", "rt-multi-thread"] }
 tracing = "0.1.40"
-tracing-subscriber = "0.3.18"
+tracing-subscriber = { version = "0.3", features = ["registry"] }
 tracing-logfmt = "0.3.3"
+tracing-bunyan-formatter = "0.3"

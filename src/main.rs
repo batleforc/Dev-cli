@@ -16,6 +16,9 @@ struct Cli {
     #[arg(short, long, global = true, value_enum)]
     verbose: Option<VerboseLevel>,
 
+    #[arg(short, long, global = true)]
+    trace: bool,
+
     #[command(subcommand)]
     command: Option<Commands>,
 }
@@ -51,7 +54,7 @@ async fn main() {
         }
         _ => Level::INFO,
     };
-    trace::init::init_tracing(debug_level);
+    trace::init::init_tracing(debug_level, cli.trace);
 
     match &cli.command {
         Some(Commands::Test { list }) => {
