@@ -9,9 +9,6 @@ use tracing::{event, Level};
 #[derive(Parser)]
 #[command(name = "DevCli", about = "A simple cli to ease the dev process with EclipseChe/Devspaces", long_about = None, version)]
 struct Cli {
-    /// Optional name to operate on
-    name: Option<String>,
-
     /// Set log level
     #[arg(short, long, global = true, value_enum)]
     verbose: Option<VerboseLevel>,
@@ -49,11 +46,6 @@ async fn main() {
 |____/ \___| \_/       \____|_____|___|"
     );
     let cli = Cli::parse();
-
-    if let Some(name) = cli.name.as_deref() {
-        println!("Name: {}", name);
-    }
-
     let debug_level = match cli.verbose {
         Some(level) => {
             println!("Verbose is set to {:?}", level);
