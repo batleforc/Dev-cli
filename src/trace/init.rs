@@ -1,11 +1,19 @@
+use ::time::format_description;
 use std::{fs::File, sync::Arc};
-
 use tracing::{level_filters::LevelFilter, subscriber};
 use tracing_bunyan_formatter::{BunyanFormattingLayer, JsonStorageLayer};
+use tracing_subscriber::fmt::time::UtcTime;
+use tracing_subscriber::fmt::{self};
 use tracing_subscriber::{layer::SubscriberExt, Layer, Registry};
-
 pub fn init_tracing(level: tracing::Level, trace: bool) {
-    let terminal_out = tracing_subscriber::fmt::layer().with_filter(LevelFilter::from(level));
+    let time_format = format_description::parse("[hour]:[minute]:[second]")
+        .expect("format string should be valid!");
+    let timer = UtcTime::new(time_format);
+
+    let terminal_out = fmt::layer()
+        .with_timer(timer)
+        .with_target(false)
+        .with_filter(LevelFilter::from(level));
     if trace {
         let file = File::options()
             .create(true)

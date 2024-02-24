@@ -1,6 +1,6 @@
 use clap::Subcommand;
 
-use super::get;
+use super::{get, get_container};
 
 /// Handle the workspaces subcommand
 #[derive(Subcommand)]
@@ -11,8 +11,6 @@ pub enum WorkSpaces {
     GetContainer {},
     /// List all workspaces
     List {},
-    /// Set the current workspace
-    Set {},
     /// Start the current workspace
     Start {},
     /// Stop the current workspace
@@ -44,9 +42,8 @@ impl WorkSpaces {
     pub async fn run(&self) {
         match self {
             WorkSpaces::Get {} => get::get_current_workspace().await,
-            WorkSpaces::GetContainer {} => todo!(),
+            WorkSpaces::GetContainer {} => get_container::get_workspace_container().await,
             WorkSpaces::List {} => todo!(),
-            WorkSpaces::Set {} => todo!(),
             WorkSpaces::Start {} => todo!(),
             WorkSpaces::Stop {} => todo!(),
             WorkSpaces::Restart {} => todo!(),
