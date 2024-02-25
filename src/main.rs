@@ -13,6 +13,7 @@ struct Cli {
     #[arg(short, long, global = true, value_enum)]
     verbose: Option<VerboseLevel>,
 
+    /// Enable trace logging, push trace to trace.log in a json format
     #[arg(short, long, global = true)]
     trace: bool,
 
@@ -33,6 +34,13 @@ enum Commands {
         /// Optional config file
         #[arg(short, long, global = true, value_name = "FILE")]
         config: Option<PathBuf>,
+
+        /// The namespace where your workspace is
+        #[arg(short, long, global = true)]
+        namespace: Option<String>,
+        /// The name of the workspace
+        #[arg(short, long, global = true)]
+        workspace_name: Option<String>,
     },
 }
 
@@ -43,7 +51,8 @@ async fn main() {
 |  _ \  _____   __     / ___| |   |_ _|
 | | | |/ _ \ \ / /____| |   | |    | | 
 | |_| |  __/\ V /_____| |___| |___ | | 
-|____/ \___| \_/       \____|_____|___|"
+|____/ \___| \_/       \____|_____|___|
+"
     );
     let cli = Cli::parse();
     let debug_level = match cli.verbose {
@@ -66,9 +75,13 @@ async fn main() {
         Some(Commands::Workspaces {
             workspace,
             config: _,
+            namespace,
+            workspace_name,
         }) => {
             if let Some(workspace) = workspace {
-                workspace.run().await;
+                workspace
+                    .run(namespace.clone(), workspace_name.clone())
+                    .await;
             }
         }
 
