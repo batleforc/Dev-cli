@@ -80,7 +80,7 @@ impl WorkSpaces {
             event!(tracing::Level::TRACE, "Using no workspace_name.");
         }
         match self {
-            WorkSpaces::Get {} => get::get_current_workspace().await,
+            WorkSpaces::Get {} => get::get_current_workspace(current_workspace).await,
             WorkSpaces::GetContainer {} => {
                 get_container::get_workspace_container(current_workspace).await
             }

@@ -15,3 +15,4 @@ tracing-subscriber = { version = "0.3", features = ["registry", "time"] }
 tracing-logfmt = "0.3.3"
 tracing-bunyan-formatter = "0.3"
 time = { version = "0.3.34" }
+serde = "1.0.197"
