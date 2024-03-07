@@ -9,7 +9,7 @@ Eclipse che is my main env that allow me to dev in my personal time (and i love 
 ### What do i need ?
 
 - Start/Restart/stop a workspaces from the CLI (Understand the lifecycle of a workspaces)
-- Restart the workspaces from the local devfile (A FEATURE THAT I REALLY NEED)
+- Restart the workspaces from the local devfile [(How it's done in che-code)](https://github.com/che-incubator/che-code/blob/main/code/extensions/che-remote/src/extension.ts#L75) (A FEATURE THAT I REALLY NEED)
 - Get my current workspaces (if in one or else choose one)
 - List other container (in the current workspace or a choosen one) and if there is get the hability to open a shell inside
 - Quick connect my vscode to the workspaces (code --folder-uri "vscode-remote://k8s-container+context={CONTEXT NAME}+podname={Pod Name}+namespace={Namespace}+name={Container name}+image={Container image}{Path to open in the project}")
