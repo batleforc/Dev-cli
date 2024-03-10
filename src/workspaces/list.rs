@@ -19,7 +19,7 @@ pub async fn list_workspace(current_workspace: CurrentWorkspace) {
         {
             event!(
                 tracing::Level::INFO,
-                "Ns : {} => {} , status : {} , current",
+                "Ns : {} => {} , Status : {} and Current",
                 devworkspace.metadata.namespace.unwrap(),
                 devworkspace.metadata.name.unwrap(),
                 devworkspace
