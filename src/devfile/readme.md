@@ -16,6 +16,7 @@ Well has we are in the process in setting up (rewriting) the restart from [local
 
 ### What we need
 
-- A [validator](https://docs.rs/jsonschema/latest/jsonschema/) that will make sure that our devfile follow the intended format. (The lib need to be tested)
-- A fetch that will handle recuperating the content of the devfile
-- An updater that will update the devfile inside the devspaces (that is present in the CRD)
+- [x] A [validator](https://docs.rs/jsonschema/latest/jsonschema/) that will make sure that our devfile follow the intended format. (The lib need to be tested)
+- [ ] A fetch that will handle recuperating the content of the devfile
+- [ ] An aggregator that will handle including the editor/merging compoent/ etc
+- [ ] An updater that will update the devfile inside the devspaces (that is present in the CRD)
