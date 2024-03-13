@@ -17,6 +17,6 @@ Well has we are in the process in setting up (rewriting) the restart from [local
 ### What we need
 
 - [x] A [validator](https://docs.rs/jsonschema/latest/jsonschema/) that will make sure that our devfile follow the intended format. (The lib need to be tested)
-- [ ] A fetch that will handle recuperating the content of the devfile
+- [ ] A fetch that will handle recuperating the content of the devfile (existing one(the one in the devworkspaces or the local one) ++ a possible remote one (link) ++ check if the folder `.che` include a file `che-editor.yaml`)
 - [ ] An aggregator that will handle including the editor/merging compoent/ etc
 - [ ] An updater that will update the devfile inside the devspaces (that is present in the CRD)
