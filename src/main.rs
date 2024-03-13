@@ -46,14 +46,7 @@ enum Commands {
 
 #[tokio::main]
 async fn main() {
-    println!(
-        r" ____                   ____ _     ___ 
-|  _ \  _____   __     / ___| |   |_ _|
-| | | |/ _ \ \ / /____| |   | |    | | 
-| |_| |  __/\ V /_____| |___| |___ | | 
-|____/ \___| \_/       \____|_____|___|
-"
-    );
+    println!(include_str!("dev-cli.art"));
     let cli = Cli::parse();
     let debug_level = match cli.verbose {
         Some(level) => {
