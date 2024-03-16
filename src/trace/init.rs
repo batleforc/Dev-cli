@@ -17,7 +17,6 @@ pub fn init_tracing(level: tracing::Level, trace: bool) {
     if trace {
         let file = File::options()
             .create(true)
-            .write(true)
             .truncate(false)
             .append(true)
             .open("trace.log")
