@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [0.2.0](https://github.com/batleforc/dev-cli/compare/0.1.0..0.2.0) - 2024-03-17
+#### Features
+- change cog config - ([13e3fe8](https://github.com/batleforc/dev-cli/commit/13e3fe8c2b5b2f4b34543df07b289bf90161046f)) - max
+
+- - -
+
 ## [0.1.0](https://github.com/batleforc/dev-cli/compare/4f597e0e1620dca6ea1b649077cb03e9e49faefa..0.1.0) - 2024-03-17
 #### Bug Fixes
 - found a tag working ? - ([3b4ca3e](https://github.com/batleforc/dev-cli/commit/3b4ca3edb37834c9d23b38ecd76766e38603be5d)) - max
