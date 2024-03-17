@@ -1,25 +1,35 @@
 # Changelog
+
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+
 ## [0.2.1](https://github.com/batleforc/dev-cli/compare/0.2.0..0.2.1) - 2024-03-17
+
 #### Features
+
 - change regex - ([1909b95](https://github.com/batleforc/dev-cli/commit/1909b95a1b36df2ac2da3029a69a9cbd2e99525a)) - max
 
 - - -
 
 ## [0.2.0](https://github.com/batleforc/dev-cli/compare/0.1.0..0.2.0) - 2024-03-17
+
 #### Features
+
 - change cog config - ([13e3fe8](https://github.com/batleforc/dev-cli/commit/13e3fe8c2b5b2f4b34543df07b289bf90161046f)) - max
 
 - - -
 
 ## [0.1.0](https://github.com/batleforc/dev-cli/compare/4f597e0e1620dca6ea1b649077cb03e9e49faefa..0.1.0) - 2024-03-17
+
 #### Bug Fixes
+
 - found a tag working ? - ([3b4ca3e](https://github.com/batleforc/dev-cli/commit/3b4ca3edb37834c9d23b38ecd76766e38603be5d)) - max
 - try to fix regex - ([8e90196](https://github.com/batleforc/dev-cli/commit/8e9019674696de99924aa4624c20039da808c3ae)) - max
 - dev de la fatigue - ([f2d6ba8](https://github.com/batleforc/dev-cli/commit/f2d6ba83ca835f1bcb9d6f0c4ed1981f53855351)) - max
+
 #### Features
+
 - work on bump - ([037bf85](https://github.com/batleforc/dev-cli/commit/037bf85eeb34a6bbb8f106937ddaecf85e38ebe4)) - max
 - setup build-release - ([7c1f386](https://github.com/batleforc/dev-cli/commit/7c1f386b090194b39d20e1031903e053361b21c8)) - max
 - start work on new CICD - ([2661ce1](https://github.com/batleforc/dev-cli/commit/2661ce1ef4ab2c8bc3f3f8f3517e488c5f2eef95)) - max
