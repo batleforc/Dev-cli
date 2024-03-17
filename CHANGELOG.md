@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [0.2.2](https://github.com/batleforc/dev-cli/compare/0.2.1..0.2.2) - 2024-03-17
+#### Features
+- work on version increment in cargo toml - ([d355155](https://github.com/batleforc/dev-cli/commit/d35515568b43505a9f4943860a40fb7965a4ebaa)) - max
+- work on version increment in cargo toml - ([24fd4d7](https://github.com/batleforc/dev-cli/commit/24fd4d7cf959d166ff2b87d45a973039f3c60f67)) - max
+- disable windows and linux for futur version - ([9e12271](https://github.com/batleforc/dev-cli/commit/9e12271a8c8be2497bcd52d0ed0e0af143e2ad11)) - max
+
+- - -
+
 
 ## [0.2.1](https://github.com/batleforc/dev-cli/compare/0.2.0..0.2.1) - 2024-03-17
 
