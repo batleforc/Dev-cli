@@ -13,12 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Semver release
-        uses: cocogitto/cocogitto-action@main
-        with:
-          release: true
-          git-user: 'batleforc bot'
-          git-user-email: 'cocogitto-bot@weebo.fr'
       - uses: taiki-e/create-gh-release-action@v1
         with:
           changelog: CHANGELOG.md
