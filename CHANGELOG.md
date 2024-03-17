@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [0.2.1](https://github.com/batleforc/dev-cli/compare/0.2.0..0.2.1) - 2024-03-17
+#### Features
+- change regex - ([1909b95](https://github.com/batleforc/dev-cli/commit/1909b95a1b36df2ac2da3029a69a9cbd2e99525a)) - max
+
+- - -
+
 ## [0.2.0](https://github.com/batleforc/dev-cli/compare/0.1.0..0.2.0) - 2024-03-17
 #### Features
 - change cog config - ([13e3fe8](https://github.com/batleforc/dev-cli/commit/13e3fe8c2b5b2f4b34543df07b289bf90161046f)) - max
