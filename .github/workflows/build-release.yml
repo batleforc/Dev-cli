@@ -1,5 +1,8 @@
 name: BuildAndAlphaRelease
 
+permissions:
+  contents: write
+
 on:
   push:
     tags:
@@ -10,9 +13,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Semver release
+        uses: cocogitto/cocogitto-action@main
+        with:
+          release: true
+          git-user: 'batleforc bot'
+          git-user-email: 'cocogitto-bot@weebo.fr'
       - uses: taiki-e/create-gh-release-action@v1
         with:
-          # (optional) Path to changelog.
           changelog: CHANGELOG.md
-          # (required) GitHub token for creating GitHub Releases.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: true
+  upload-assets:
+    needs: create-release
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: taiki-e/upload-rust-binary-action@v1
+        with:
+          bin: dev-cli
+          tar: unix
+          zip: windows
+          archive: $bin-$tag-$target
           token: ${{ secrets.GITHUB_TOKEN }}
