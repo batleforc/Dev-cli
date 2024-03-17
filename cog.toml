@@ -8,7 +8,10 @@ template = "remote"
 remote = "github.com"
 repository = "dev-cli"
 owner = "batleforc"
-authors = [{ username = "batleforc", signature = "Maxime Leriche" }]
+authors = [
+    { username = "batleforc", signature = "Maxime Leriche" },
+    { username = "max", signature = "Maxime Leriche" },
+]
 
 [bump_profiles]
 
