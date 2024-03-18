@@ -18,8 +18,9 @@ pub async fn toggle_workspace(current_workspace: CurrentWorkspace, target_status
         None => return,
     };
     let devworkspace_api = current_workspace.get_api::<DevWorkspace>(client);
-    if let Some(_) =
-        start_stop_devworkspace(devworkspace_api, current_workspace.clone(), target_status).await
+    if start_stop_devworkspace(devworkspace_api, current_workspace.clone(), target_status)
+        .await
+        .is_some()
     {
         match target_status {
             true => event!(

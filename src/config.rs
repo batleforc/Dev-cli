@@ -31,7 +31,7 @@ impl CurrentWorkspace {
     }
     pub fn is_in_pod(&self) -> bool {
         let current_workspace_name = std::env::var("DEVWORKSPACE_NAME").ok();
-        return self.is_in_pod && current_workspace_name == self.workspace_name;
+        self.is_in_pod && current_workspace_name == self.workspace_name
     }
 
     #[tracing::instrument(level = "trace")]
@@ -58,7 +58,7 @@ impl CurrentWorkspace {
         <T as kube::Resource>::DynamicType: Default,
     {
         match &self.namespace {
-            Some(namespace) => Api::namespaced(client, &namespace),
+            Some(namespace) => Api::namespaced(client, namespace),
             None => Api::default_namespaced(client),
         }
     }
