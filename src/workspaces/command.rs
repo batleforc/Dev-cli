@@ -3,7 +3,7 @@ use tracing::event;
 
 use crate::config::CurrentWorkspace;
 
-use super::{get, get_container, list};
+use super::{get, get_container, list, toggle};
 
 /// Handle the workspaces subcommand
 #[derive(Subcommand)]
@@ -85,8 +85,8 @@ impl WorkSpaces {
                 get_container::get_workspace_container(current_workspace).await
             }
             WorkSpaces::List {} => list::list_workspace(current_workspace).await,
-            WorkSpaces::Start {} => todo!(),
-            WorkSpaces::Stop {} => todo!(),
+            WorkSpaces::Start {} => toggle::toggle_workspace(current_workspace, true).await,
+            WorkSpaces::Stop {} => toggle::toggle_workspace(current_workspace, false).await,
             WorkSpaces::Restart {} => todo!(),
             WorkSpaces::RestartLocal {} => todo!(),
             WorkSpaces::Shell { name: _, shell: _ } => todo!(),

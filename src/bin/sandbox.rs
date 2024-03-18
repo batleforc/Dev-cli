@@ -1,13 +1,5 @@
-use std::{fs::File, io::Read};
-
-use dev_cli::{
-    config::CurrentWorkspace, crd::dev_work_space::DevWorkspace,
-    devfile::validator::version::DevFileVersion, trace,
-};
-use kube::{
-    api::{Patch, PatchParams},
-    Resource,
-};
+use dev_cli::{config::CurrentWorkspace, crd::dev_work_space::DevWorkspace, trace};
+use kube::api::{Patch, PatchParams};
 use serde_json::from_value;
 use tracing::{event, Level};
 

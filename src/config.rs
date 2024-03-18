@@ -4,12 +4,13 @@ use k8s_openapi::NamespaceResourceScope;
 use kube::{client, Api, Client, Resource};
 use tracing::event;
 
+#[derive(Clone)]
 pub struct CurrentWorkspace {
     pub namespace: Option<String>,
     pub workspace_name: Option<String>,
     pub workspace_id: Option<String>,
     pub podname: Option<String>,
-    pub is_in_pod: bool,
+    is_in_pod: bool,
 }
 
 impl CurrentWorkspace {
@@ -27,6 +28,10 @@ impl CurrentWorkspace {
             podname,
             is_in_pod,
         }
+    }
+    pub fn is_in_pod(&self) -> bool {
+        let current_workspace_name = std::env::var("DEVWORKSPACE_NAME").ok();
+        return self.is_in_pod && current_workspace_name == self.workspace_name;
     }
 
     #[tracing::instrument(level = "trace")]
