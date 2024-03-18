@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [0.3.1](https://github.com/batleforc/dev-cli/compare/589eb93c0ee108171ff31a311e546c66ba7ec29e..0.3.1) - 2024-03-18
+#### Bug Fixes
+- resolve code scanning alert - ([589eb93](https://github.com/batleforc/dev-cli/commit/589eb93c0ee108171ff31a311e546c66ba7ec29e)) - max
+
+- - -
+
 ## [0.3.0](https://github.com/batleforc/dev-cli/compare/f6d1e97329b8ec3ca09b0551bef3b940040d9a64..0.3.0) - 2024-03-18
 #### Features
 - Start/Stop ws ++ basic lifecycle - ([9323330](https://github.com/batleforc/dev-cli/commit/9323330d2223d44583d9d8d8265a0c41a8eae42f)) - max
