@@ -12,7 +12,7 @@ Eclipse che is my main env that allow me to dev in my personal time (and i love 
 - Restart the workspaces from the local devfile [(How it's done in che-code)](https://github.com/che-incubator/che-code/blob/main/code/extensions/che-remote/src/extension.ts#L75) (A FEATURE THAT I REALLY NEED)
 - Get my current workspaces (if in one or else choose one)
 - List other container (in the current workspace or a choosen one) and if there is get the hability to open a shell inside
-- Quick connect my vscode to the workspaces (code --folder-uri "vscode-remote://k8s-container+context={CONTEXT NAME}+podname={Pod Name}+namespace={Namespace}+name={Container name}+image={Container image}{Path to open in the project}") (Block thread and prevent workspace to stop ?)
+- Quick connect my vscode to the workspaces (code --folder-uri "vscode-remote://k8s-container+context={CONTEXT NAME}+podname={Pod Name}+namespace={Namespace}+name={Container name}+image={Container image}{Path to open in the project}") (Block thread and [prevent workspace to stop](https://github.com/che-incubator/che-code/blob/6e0a908d58cacb380c216dde3af544d75e3913d5/code/extensions/che-api/src/impl/k8s-workspace-service-impl.ts#L57)?)
 - Quick connect Idea (jetbrains gateway) if handled by the workspaces
 - Spawn a shell in one of the container in the workspaces <https://docs.rs/kube/latest/kube/struct.Api.html#method.exec>
 

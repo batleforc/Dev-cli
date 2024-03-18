@@ -20,3 +20,6 @@ Well has we are in the process in setting up (rewriting) the restart from [local
 - [ ] A fetch that will handle recuperating the content of the devfile (existing one(the one in the devworkspaces or the local one) ++ a possible remote one (link) ++ check if the folder `.che` include a file `che-editor.yaml`)
 - [ ] An aggregator that will handle including the editor/merging component/ etc
 - [ ] An updater that will update the devfile inside the devspaces (that is present in the CRD)
+- [ ] A lifecycle handler ?
+  - [ ] [Patch](https://docs.rs/kube/latest/kube/api/enum.Patch.html)
+  - [ ] [Stop WS](https://github.com/che-incubator/che-code/blob/6e0a908d58cacb380c216dde3af544d75e3913d5/code/extensions/che-api/src/impl/k8s-workspace-service-impl.ts#L62)
