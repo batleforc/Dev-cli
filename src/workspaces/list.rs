@@ -1,15 +1,14 @@
-use kube::{client, Api};
 use tracing::event;
 
 use crate::{config::CurrentWorkspace, crd::dev_work_space::DevWorkspace};
 
 #[tracing::instrument(level = "trace")]
 pub async fn list_workspace(current_workspace: CurrentWorkspace) {
-    let client = client::Client::try_default().await.unwrap();
-    let devworkspace_api: Api<DevWorkspace> = match current_workspace.namespace {
-        Some(namespace) => Api::namespaced(client, &namespace),
-        None => Api::default_namespaced(client),
+    let client = match current_workspace.get_client().await {
+        Some(iencli) => iencli,
+        None => return,
     };
+    let devworkspace_api = current_workspace.get_api::<DevWorkspace>(client);
     event!(tracing::Level::INFO, "DevWorkSpace :");
     for devworkspace in devworkspace_api.list(&Default::default()).await.unwrap() {
         if current_workspace.is_in_pod

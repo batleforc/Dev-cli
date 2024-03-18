@@ -1,5 +1,9 @@
 use std::fmt::Debug;
 
+use k8s_openapi::NamespaceResourceScope;
+use kube::{client, Api, Client, Resource};
+use tracing::event;
+
 pub struct CurrentWorkspace {
     pub namespace: Option<String>,
     pub workspace_name: Option<String>,
@@ -22,6 +26,35 @@ impl CurrentWorkspace {
             workspace_name,
             podname,
             is_in_pod,
+        }
+    }
+
+    #[tracing::instrument(level = "trace")]
+    pub async fn get_client(&self) -> Option<Client> {
+        match client::Client::try_default().await {
+            Ok(iencli) => {
+                event!(tracing::Level::TRACE, "Kube client created");
+                Some(iencli)
+            }
+            Err(err) => {
+                event!(
+                    tracing::Level::ERROR,
+                    "Could not instanciate kube Client : {:?}",
+                    err
+                );
+                None
+            }
+        }
+    }
+
+    #[tracing::instrument(level = "trace", skip(client))]
+    pub fn get_api<T: Resource<Scope = NamespaceResourceScope>>(&self, client: Client) -> Api<T>
+    where
+        <T as kube::Resource>::DynamicType: Default,
+    {
+        match &self.namespace {
+            Some(namespace) => Api::namespaced(client, &namespace),
+            None => Api::default_namespaced(client),
         }
     }
 
