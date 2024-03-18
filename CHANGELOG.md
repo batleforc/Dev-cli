@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [0.3.0](https://github.com/batleforc/dev-cli/compare/f6d1e97329b8ec3ca09b0551bef3b940040d9a64..0.3.0) - 2024-03-18
+#### Features
+- Start/Stop ws ++ basic lifecycle - ([9323330](https://github.com/batleforc/dev-cli/commit/9323330d2223d44583d9d8d8265a0c41a8eae42f)) - max
+- WIP: devworkspaces Start/Stop - ([9248adc](https://github.com/batleforc/dev-cli/commit/9248adc9c37bad62bcb9b2f0fdd86b9ebb261fb9)) - max
+- facto code to follow the same client/api instance - ([4637dad](https://github.com/batleforc/dev-cli/commit/4637dad8f1634186545c05b9a4fef8d508ada962)) - max
+- Explain the versioning process - ([f6d1e97](https://github.com/batleforc/dev-cli/commit/f6d1e97329b8ec3ca09b0551bef3b940040d9a64)) - max
+
+- - -
+
 ## [0.2.2](https://github.com/batleforc/dev-cli/compare/0.2.1..0.2.2) - 2024-03-17
 #### Features
 - work on version increment in cargo toml - ([d355155](https://github.com/batleforc/dev-cli/commit/d35515568b43505a9f4943860a40fb7965a4ebaa)) - max
