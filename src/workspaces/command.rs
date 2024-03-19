@@ -19,7 +19,11 @@ pub enum WorkSpaces {
     /// Stop the current workspace
     Stop {},
     /// Restart the current workspace
-    Restart {},
+    Restart {
+        /// Wait for the workspace to be started
+        #[arg(long)]
+        wait: bool,
+    },
     /// Restart the current workspace from local devfile
     RestartLocal {},
     /// Spawn a shell in the selected container
@@ -87,7 +91,9 @@ impl WorkSpaces {
             WorkSpaces::List {} => list::list_workspace(current_workspace).await,
             WorkSpaces::Start {} => toggle::toggle_workspace(current_workspace, true).await,
             WorkSpaces::Stop {} => toggle::toggle_workspace(current_workspace, false).await,
-            WorkSpaces::Restart {} => restart::restart_workspace(current_workspace).await,
+            WorkSpaces::Restart { wait } => {
+                restart::restart_workspace(current_workspace, *wait).await
+            }
             WorkSpaces::RestartLocal {} => todo!(),
             WorkSpaces::Shell { name: _, shell: _ } => todo!(),
             WorkSpaces::OpenVsCode { name: _ } => todo!(),

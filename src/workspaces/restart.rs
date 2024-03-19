@@ -1,3 +1,4 @@
+use kube::Api;
 use tokio::time::{sleep, Duration};
 use tracing::event;
 
@@ -7,7 +8,7 @@ use crate::{
 };
 
 #[tracing::instrument(level = "trace")]
-pub async fn restart_workspace(current_workspace: CurrentWorkspace) {
+pub async fn restart_workspace(current_workspace: CurrentWorkspace, wait: bool) {
     if current_workspace.is_in_pod() {
         event!(
             tracing::Level::ERROR,
@@ -30,26 +31,54 @@ pub async fn restart_workspace(current_workspace: CurrentWorkspace) {
         event!(tracing::Level::TRACE, "Workspace stopped");
     }
     let ws_name = current_workspace.workspace_name.clone().unwrap();
-    loop {
-        let ws = match devworkspace_api.get(&ws_name).await {
-            Ok(ws) => ws,
-            Err(e) => {
-                event!(tracing::Level::ERROR, "Could not get workspace: {}", e);
-                return;
-            }
-        };
-        if let Some(status) = ws.status {
-            if status.phase == Some("Stopped".to_string()) {
-                break;
-            }
-        }
-        sleep(Duration::from_millis(2000)).await;
+    if wait_for_status(
+        devworkspace_api.clone(),
+        ws_name.clone(),
+        "Stopped".to_string(),
+    )
+    .await
+    .is_none()
+    {
+        return;
     }
     if start_stop_devworkspace(devworkspace_api.clone(), current_workspace.clone(), true)
         .await
         .is_some()
     {
         event!(tracing::Level::INFO, "Workspace restarting");
-        return;
+    }
+    if wait {
+        if wait_for_status(
+            devworkspace_api.clone(),
+            ws_name.clone(),
+            "Running".to_string(),
+        )
+        .await
+        .is_some()
+        {
+            event!(tracing::Level::INFO, "Workspace restarted");
+        }
+    }
+}
+
+async fn wait_for_status(
+    devworkspace_api: Api<DevWorkspace>,
+    ws_name: String,
+    target_status: String,
+) -> Option<()> {
+    loop {
+        let ws = match devworkspace_api.get(&ws_name).await {
+            Ok(ws) => ws,
+            Err(e) => {
+                event!(tracing::Level::ERROR, "Could not get workspace: {}", e);
+                return None;
+            }
+        };
+        if let Some(status) = ws.status {
+            if status.phase == Some(target_status.clone()) {
+                return Some(());
+            }
+        }
+        sleep(Duration::from_millis(2000)).await;
     }
 }
