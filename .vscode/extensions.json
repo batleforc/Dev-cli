@@ -12,6 +12,7 @@
     "shardulm94.trailing-spaces",
     "tamasfe.even-better-toml",
     "edwinkofler.vscode-hyperupcall-pack-markdown",
-    "proxzima.sweetdracula"
+    "proxzima.sweetdracula",
+    "wdhongtw.gpg-indicator"
   ]
 }
