@@ -5,7 +5,10 @@ use tracing::event;
 use crate::config::CurrentWorkspace;
 
 #[tracing::instrument(level = "trace", skip(client))]
-pub async fn find_ws_pod_name(client: Client, current_workspace: CurrentWorkspace) -> Option<Pod> {
+pub async fn find_pod_by_ws_name(
+    client: Client,
+    current_workspace: CurrentWorkspace,
+) -> Option<Pod> {
     let pods = current_workspace.get_api::<Pod>(client);
     let mut lp = ListParams::default();
     if let Some(workspace_name) = current_workspace.workspace_name {

@@ -1,8 +1,6 @@
-use k8s_openapi::api::core::v1::Pod;
-use kube::api::ListParams;
 use tracing::event;
 
-use crate::config::CurrentWorkspace;
+use crate::{config::CurrentWorkspace, shell::find_pod_by_ws_name::find_pod_by_ws_name};
 
 #[tracing::instrument(level = "trace")]
 pub async fn get_workspace_container(current_workspace: CurrentWorkspace) {
@@ -10,24 +8,22 @@ pub async fn get_workspace_container(current_workspace: CurrentWorkspace) {
         Some(iencli) => iencli,
         None => return,
     };
-    let pods = current_workspace.get_api::<Pod>(client);
-
-    let mut lp = ListParams::default();
-    if let Some(workspace_name) = current_workspace.workspace_name {
-        let label = format!("controller.devfile.io/devworkspace_name={}", workspace_name);
-        lp = lp.labels(&label);
-    }
-    for pod in pods.list(&lp).await.unwrap() {
-        event!(
-            tracing::Level::INFO,
-            "Pod: {:?} => {:?} ",
-            pod.metadata.name.unwrap(),
-            pod.spec
-                .unwrap()
-                .containers
-                .into_iter()
-                .map(|c| c.name)
-                .collect::<Vec<String>>()
-        );
-    }
+    let pod = match find_pod_by_ws_name(client, current_workspace.clone()).await {
+        Some(pod) => pod,
+        None => {
+            event!(tracing::Level::ERROR, "Pod's not found");
+            return;
+        }
+    };
+    event!(
+        tracing::Level::INFO,
+        "Pod: {:?} => {:?} ",
+        pod.metadata.name.unwrap(),
+        pod.spec
+            .unwrap()
+            .containers
+            .into_iter()
+            .map(|c| c.name)
+            .collect::<Vec<String>>()
+    );
 }
