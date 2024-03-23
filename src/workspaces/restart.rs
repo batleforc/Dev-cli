@@ -47,17 +47,16 @@ pub async fn restart_workspace(current_workspace: CurrentWorkspace, wait: bool) 
     {
         event!(tracing::Level::INFO, "Workspace restarting");
     }
-    if wait {
-        if wait_for_status(
+    if wait
+        && wait_for_status(
             devworkspace_api.clone(),
             ws_name.clone(),
             "Running".to_string(),
         )
         .await
         .is_some()
-        {
-            event!(tracing::Level::INFO, "Workspace restarted");
-        }
+    {
+        event!(tracing::Level::INFO, "Workspace restarted");
     }
 }
 

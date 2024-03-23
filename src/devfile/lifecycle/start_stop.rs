@@ -7,6 +7,7 @@ use tracing::event;
 
 use crate::{config::CurrentWorkspace, crd::dev_work_space::DevWorkspace};
 
+#[tracing::instrument(level = "trace")]
 pub async fn start_stop_devworkspace(
     devworkspace_api: Api<DevWorkspace>,
     current_workspace: CurrentWorkspace,
