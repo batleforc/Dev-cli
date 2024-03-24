@@ -3,7 +3,7 @@ use tracing::event;
 
 use crate::config::CurrentWorkspace;
 
-use super::{get, get_container, list, restart, toggle};
+use super::{get, get_container, list, restart, shell, toggle};
 
 /// Handle the workspaces subcommand
 #[derive(Subcommand)]
@@ -29,10 +29,10 @@ pub enum WorkSpaces {
     /// Spawn a shell in the selected container
     Shell {
         /// The name of the container to spawn the shell in
-        name: String,
+        #[arg(long)]
+        name: Option<String>,
 
         /// The shell to spawn
-        #[arg(short, long, default_value = "bash")]
         shell: String,
     },
     /// Open the selected workspace in vscode
@@ -95,7 +95,12 @@ impl WorkSpaces {
                 restart::restart_workspace(current_workspace, *wait).await
             }
             WorkSpaces::RestartLocal {} => todo!(),
-            WorkSpaces::Shell { name: _, shell: _ } => todo!(),
+            WorkSpaces::Shell {
+                name,
+                shell: shell_content,
+            } => {
+                shell::spawn_shell(current_workspace, name.clone(), shell_content.to_string()).await
+            }
             WorkSpaces::OpenVsCode { name: _ } => todo!(),
             WorkSpaces::InfoIdea {} => todo!(),
         }
