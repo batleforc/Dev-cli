@@ -29,7 +29,7 @@ pub async fn spawn_shell(
     let mut attach_param = AttachParams::interactive_tty();
     attach_param.container = Some(container_cible);
 
-    let process = match pod_api
+    let mut process = match pod_api
         .exec(&pod.metadata.name.unwrap(), vec![shell], &attach_param)
         .await
     {
@@ -46,6 +46,56 @@ pub async fn spawn_shell(
             return;
         }
     };
+
+    let mut stdout_reader = match process.stdout() {
+        Some(reader) => {
+            event!(tracing::Level::TRACE, "Got stdout reader");
+            reader
+        }
+        None => {
+            event!(tracing::Level::ERROR, "Can't get stdout reader");
+            return;
+        }
+    };
+
+    let mut stdin_writer = match process.stdin() {
+        Some(writer) => {
+            event!(tracing::Level::TRACE, "Got stdin writer");
+            writer
+        }
+        None => {
+            event!(tracing::Level::ERROR, "Can't get stdin writer");
+            return;
+        }
+    };
+
+    let mut stdin = tokio::io::stdin();
+    let mut stdout = tokio::io::stdout();
+
+    tokio::spawn(async move {
+        match tokio::io::copy(&mut stdin, &mut stdin_writer).await {
+            Ok(is_ok) => {
+                event!(tracing::Level::TRACE, "Output stdin code : {}", is_ok);
+            }
+            Err(err) => {
+                event!(tracing::Level::ERROR, ?err, "Error while copying stdin");
+            }
+        };
+    });
+    // pipe stdout from ws to current stdout
+    tokio::spawn(async move {
+        match tokio::io::copy(&mut stdout_reader, &mut stdout).await {
+            Ok(is_ok) => {
+                event!(tracing::Level::TRACE, "Output stdout code : {}", is_ok);
+            }
+            Err(err) => {
+                event!(tracing::Level::ERROR, ?err, "Error while copying stdout");
+            }
+        };
+    });
+
+    let status = process.take_status().unwrap().await;
+    event!(tracing::Level::INFO, ?status, "End of session");
 }
 
 #[tracing::instrument(level = "trace")]
