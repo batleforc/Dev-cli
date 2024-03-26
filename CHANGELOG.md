@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [0.4.0](https://github.com/batleforc/dev-cli/compare/02b9bb0b7974df236c355d06c9e19e8b30264545..0.4.0) - 2024-03-26
+#### Features
+- move from full handled to crossterm in order to have a better handle of the terminal workflow (K9s workkkkk) - ([31fa657](https://github.com/batleforc/dev-cli/commit/31fa65783c0ae837e96830de1b5724bd1d3a129f)) - max
+- Mise en place du shell a travers du tokio stdin de base - ([ee832fb](https://github.com/batleforc/dev-cli/commit/ee832fb0a99665d6805e92cb4623b2192b065c47)) - max
+- prepare process - ([a36c6ed](https://github.com/batleforc/dev-cli/commit/a36c6edb84a562a0acad7d72bd0f2595cfffbeb5)) - max
+- Mise en place selecteur de containeur pour la commande shell - ([4545a9f](https://github.com/batleforc/dev-cli/commit/4545a9ff89017c45bf3b02c766eeb67985942868)) - max
+- factorize list container - ([ea6d497](https://github.com/batleforc/dev-cli/commit/ea6d4974f5a609b6e2a7f24ab120dfd970666214)) - max
+- get pod from devworkspace name - ([0de7464](https://github.com/batleforc/dev-cli/commit/0de746400f5a72177e95fe993cfd8761b5a0fb6a)) - max
+- start shell spec - ([35944da](https://github.com/batleforc/dev-cli/commit/35944da32c29c53cb3307e0e93ee08e711a25eef)) - max
+- add extension wdhongtw.gpg-indicator - ([162a5d6](https://github.com/batleforc/dev-cli/commit/162a5d6ecb90683540154a4b281115b104afe788)) - Maxime
+- include an arg that will wait for the restart to be finished - ([0da5383](https://github.com/batleforc/dev-cli/commit/0da53836b72bad1a6db786b64bf4e5f30edb34de)) - max
+- setup restart - ([02b9bb0](https://github.com/batleforc/dev-cli/commit/02b9bb0b7974df236c355d06c9e19e8b30264545)) - max
+
+- - -
+
 ## [0.3.1](https://github.com/batleforc/dev-cli/compare/589eb93c0ee108171ff31a311e546c66ba7ec29e..0.3.1) - 2024-03-18
 #### Bug Fixes
 - resolve code scanning alert - ([589eb93](https://github.com/batleforc/dev-cli/commit/589eb93c0ee108171ff31a311e546c66ba7ec29e)) - max
