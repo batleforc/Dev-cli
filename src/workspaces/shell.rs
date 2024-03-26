@@ -83,6 +83,9 @@ pub async fn spawn_shell(
             return Ok(());
         }
     };
+
+    // The following is taken from https://github.com/kube-rs/kube/blob/main/examples/pod_shell_crossterm.rs
+    // Even if it's taken 
     crossterm::terminal::enable_raw_mode()?;
     let mut stdin = tokio_util::io::ReaderStream::new(tokio::io::stdin());
     let mut stdout = tokio::io::stdout();

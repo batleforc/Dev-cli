@@ -13,6 +13,7 @@
     "tamasfe.even-better-toml",
     "edwinkofler.vscode-hyperupcall-pack-markdown",
     "proxzima.sweetdracula",
-    "wdhongtw.gpg-indicator"
+    "wdhongtw.gpg-indicator",
+    "vadimcn.vscode-lldb"
   ]
 }
