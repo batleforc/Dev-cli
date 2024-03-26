@@ -99,7 +99,16 @@ impl WorkSpaces {
                 name,
                 shell: shell_content,
             } => {
-                shell::spawn_shell(current_workspace, name.clone(), shell_content.to_string()).await
+                if let Err(err) =
+                    shell::spawn_shell(current_workspace, name.clone(), shell_content.to_string())
+                        .await
+                {
+                    event!(
+                        tracing::Level::ERROR,
+                        ?err,
+                        "Unhandled error from crossterm or other"
+                    );
+                }
             }
             WorkSpaces::OpenVsCode { name: _ } => todo!(),
             WorkSpaces::InfoIdea {} => todo!(),
