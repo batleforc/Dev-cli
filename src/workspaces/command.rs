@@ -39,6 +39,10 @@ pub enum WorkSpaces {
     OpenVsCode {
         /// The name of the container to spawn the vscode in
         name: String,
+
+        // Port for the healthcheck
+        #[arg(long, short, default_value_t = 3333)]
+        port: u16,
     },
     /// Get the info to open the workspace in Idea
     InfoIdea {},
@@ -110,7 +114,7 @@ impl WorkSpaces {
                     );
                 }
             }
-            WorkSpaces::OpenVsCode { name: _ } => todo!(),
+            WorkSpaces::OpenVsCode { name: _, port: _ } => todo!(),
             WorkSpaces::InfoIdea {} => todo!(),
         }
     }
