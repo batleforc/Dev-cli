@@ -1,6 +1,4 @@
-use dev_cli::{config::CurrentWorkspace, crd::dev_work_space::DevWorkspace, trace};
-use kube::api::{Patch, PatchParams};
-use serde_json::from_value;
+use dev_cli::{config::CurrentWorkspace, trace};
 use tracing::{event, Level};
 
 extern crate dev_cli;
@@ -8,23 +6,6 @@ extern crate dev_cli;
 #[tokio::main]
 pub async fn main() {
     trace::init::init_tracing(Level::INFO, false);
-    // let mut dev_filefs = match File::open("./devfile.yaml") {
-    //     Ok(file) => file,
-    //     Err(err) => {
-    //         event!(tracing::Level::ERROR, "Could not open file: {:?}", err);
-    //         return;
-    //     }
-    // };
-    // let mut contents = String::new();
-    // match dev_filefs.read_to_string(&mut contents) {
-    //     Ok(content) => content,
-    //     Err(err) => {
-    //         event!(tracing::Level::ERROR, "Could not read file: {:?}", err);
-    //         return;
-    //     }
-    // };
-    // let version = DevFileVersion::validate(contents.clone());
-    // println!("{:?}", version);
     let mut current_workspace = match CurrentWorkspace::try_from_env() {
         Some(workspace) => workspace,
         None => {
@@ -32,25 +13,41 @@ pub async fn main() {
             return;
         }
     };
-    current_workspace.workspace_name = Some("build-docker".to_string());
+    current_workspace.workspace_name = Some("dev-cli".to_string());
     let client = match current_workspace.get_client().await {
         Some(iencli) => iencli,
         None => return,
     };
-    let devworkspace_api = current_workspace.get_api::<DevWorkspace>(client);
-
-    if let Some(ws_name) = current_workspace.workspace_name {
-        let js_patch = serde_json::json!([{
-            "op": "replace",
-            "path":"/spec/started",
-            "value": false
-        }]);
-        let p_patch: json_patch::Patch = from_value(js_patch).unwrap();
-        let params = PatchParams::apply("dev-cli");
-        let patch = Patch::Json::<()>(p_patch);
-        let res = devworkspace_api
-            .patch(&ws_name.clone(), &params, &patch)
-            .await;
-        event!(tracing::Level::INFO, "{:?}", res);
-    }
+    // check if workspace is up by getting the pod
+    let pod = match dev_cli::shell::find_pod_by_ws_name::find_pod_by_ws_name(
+        client.clone(),
+        current_workspace.clone(),
+    )
+    .await
+    {
+        Some(pod) => pod,
+        None => {
+            event!(
+                tracing::Level::ERROR,
+                "No pod found for workspace, should i start the workspace?"
+            );
+            return;
+        }
+    };
+    // Create open code object
+    let open_code = dev_cli::vscode::open_code::OpenCode {
+        context: None,
+        pod_name: Some(pod.metadata.name.clone().unwrap()),
+        namespace: Some(pod.metadata.namespace.clone().unwrap()),
+        container_name: Some(pod.spec.clone().unwrap().containers[0].name.clone()),
+        container_image: Some(
+            pod.spec.clone().unwrap().containers[0]
+                .image
+                .clone()
+                .unwrap(),
+        ),
+        path: Some("/projects/".to_string()),
+    };
+    // Open the workspace in vscode
+    open_code.open();
 }
