@@ -3,11 +3,10 @@ use dev_cli::{
     trace::{self, level::VerboseLevel},
     workspaces::command::WorkSpaces,
 };
-use std::path::PathBuf;
 use tracing::{event, Level};
 
 #[derive(Parser)]
-#[command(name = "DevCli", about = "A simple cli to ease the dev process with EclipseChe/Devspaces", long_about = None, version)]
+#[command(name = "DevCli", about = "A simple cli to ease the dev process with EclipseChe/Devspaces", long_about = None, version, arg_required_else_help = true)]
 struct Cli {
     /// Set log level
     #[arg(short, long, global = true, value_enum)]
@@ -30,10 +29,6 @@ enum Commands {
     Workspaces {
         #[command(subcommand)]
         workspace: Option<WorkSpaces>,
-
-        /// Optional config file
-        #[arg(short, long, global = true, value_name = "FILE")]
-        config: Option<PathBuf>,
 
         /// The namespace where your workspace is
         #[arg(short, long, global = true)]
@@ -67,7 +62,6 @@ async fn main() {
         }
         Some(Commands::Workspaces {
             workspace,
-            config: _,
             namespace,
             workspace_name,
         }) => {
@@ -75,6 +69,7 @@ async fn main() {
                 workspace
                     .run(namespace.clone(), workspace_name.clone())
                     .await;
+            } else {
             }
         }
 

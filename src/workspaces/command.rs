@@ -38,11 +38,19 @@ pub enum WorkSpaces {
     /// Open the selected workspace in vscode
     OpenVsCode {
         /// The name of the container to spawn the vscode in
-        name: String,
+        #[arg(long, short)]
+        name: Option<String>,
 
-        // Port for the healthcheck
+        /// Port for the healthcheck
         #[arg(long, short, default_value_t = 3333)]
         port: u16,
+
+        /// Path in wich the workspace will be opened
+        #[arg(long, short, default_value = "/projects/")]
+        path: String,
+
+        #[arg(long, short)]
+        context: Option<String>,
     },
     /// Get the info to open the workspace in Idea
     InfoIdea {},
@@ -114,7 +122,12 @@ impl WorkSpaces {
                     );
                 }
             }
-            WorkSpaces::OpenVsCode { name: _, port: _ } => todo!(),
+            WorkSpaces::OpenVsCode {
+                name: _,
+                port: _,
+                path: _,
+                context: _,
+            } => todo!(),
             WorkSpaces::InfoIdea {} => todo!(),
         }
     }
