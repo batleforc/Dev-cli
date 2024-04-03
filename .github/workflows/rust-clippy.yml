@@ -16,7 +16,7 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
   schedule:
-    - cron: '43 13 * * 0'
+    - cron: '50 23 * * *'
 
 jobs:
   rust-clippy-analyze:
@@ -37,7 +37,7 @@ jobs:
           components: clippy, rustfmt
 
       - name: Install required cargo
-        run: cargo install clippy-sarif sarif-fmt
+        run: cargo install clippy-sarif sarif-fmt cargo-audit
 
       - name: Run rust-clippy
         run:
