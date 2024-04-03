@@ -38,11 +38,11 @@ pub enum WorkSpaces {
     /// Open the selected workspace in vscode
     OpenVsCode {
         /// The name of the container to spawn the vscode in
-        #[arg(long, short)]
+        #[arg(long)]
         name: Option<String>,
 
         /// Port for the healthcheck
-        #[arg(long, short, default_value_t = 3333)]
+        #[arg(long, default_value_t = 3333)]
         port: u16,
 
         /// Path in wich the workspace will be opened
