@@ -15,7 +15,7 @@ Eclipse che is my main env that allow me to dev in my personal time (and i love 
 
 ###  What's left to do ?
 
-- [WIP] Quick connect my vscode to the workspaces (code --folder-uri "vscode-remote://k8s-container+context={CONTEXT NAME}+podname={Pod Name}+namespace={Namespace}+name={Container name}+image={Container image}{Path to open in the project}") (Block thread and [prevent workspace to stop](https://github.com/che-incubator/che-code/blob/6e0a908d58cacb380c216dde3af544d75e3913d5/code/extensions/che-api/src/impl/k8s-workspace-service-impl.ts#L57)?)
+- [WIP] Quick connect my vscode to the workspaces (code --folder-uri "vscode-remote://k8s-container+context={CONTEXT NAME}+podname={Pod Name}+namespace={Namespace}+name={Container name}+image={Container image}{Path to open in the project}") (Block thread and [prevent workspace to stop](https://github.com/che-incubator/che-code/blob/6e0a908d58cacb380c216dde3af544d75e3913d5/code/extensions/che-api/src/impl/k8s-workspace-service-impl.ts#L57)? and [in the interval](https://github.com/che-incubator/che-code/blob/main/code/extensions/che-activity-tracker/src/activity-tracker-service.ts#L18))
 - Restart the workspaces from the local devfile [(How it's done in che-code)](https://github.com/che-incubator/che-code/blob/main/code/extensions/che-remote/src/extension.ts#L75) (A FEATURE THAT I REALLY NEED)
 - Quick connect Idea (jetbrains gateway) if handled by the workspaces
 - PortForward a list of pod (config file ?) [How it's done in the exemple](https://github.com/kube-rs/kube/blob/main/examples/pod_portforward_bind.rs#L60)
@@ -23,7 +23,7 @@ Eclipse che is my main env that allow me to dev in my personal time (and i love 
 ### NotaBene
 
 - To detect DevSpace/Eclipse Che there is some env var that's available.
-![exemple](./doc/image/var-env-in-devspaces.png)
+  ![exemple](./doc/image/var-env-in-devspaces.png)
 - You can start/stop with a simple patch [Code Source](https://github.com/che-incubator/che-code/blob/6e0a908d58cacb380c216dde3af544d75e3913d5/code/extensions/che-api/src/impl/k8s-workspace-service-impl.ts#L62)
 
 ## CRD handling and generating
