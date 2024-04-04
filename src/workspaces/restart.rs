@@ -60,7 +60,7 @@ pub async fn restart_workspace(current_workspace: CurrentWorkspace, wait: bool) 
     }
 }
 
-async fn wait_for_status(
+pub async fn wait_for_status(
     devworkspace_api: Api<DevWorkspace>,
     ws_name: String,
     target_status: String,

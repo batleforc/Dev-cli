@@ -3,7 +3,7 @@ use tracing::event;
 
 use crate::config::CurrentWorkspace;
 
-use super::{get, get_container, list, restart, shell, toggle};
+use super::{get, get_container, list, open_vs_code, restart, shell, toggle};
 
 /// Handle the workspaces subcommand
 #[derive(Subcommand)]
@@ -123,11 +123,20 @@ impl WorkSpaces {
                 }
             }
             WorkSpaces::OpenVsCode {
-                name: _,
-                port: _,
-                path: _,
-                context: _,
-            } => todo!(),
+                name,
+                port,
+                path,
+                context,
+            } => {
+                open_vs_code::open_vs_code(
+                    current_workspace,
+                    name.clone(),
+                    *port,
+                    path.to_string(),
+                    context.clone(),
+                )
+                .await
+            }
             WorkSpaces::InfoIdea {} => todo!(),
         }
     }
