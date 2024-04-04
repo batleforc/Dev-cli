@@ -69,7 +69,6 @@ async fn main() {
                 workspace
                     .run(namespace.clone(), workspace_name.clone())
                     .await;
-            } else {
             }
         }
 
