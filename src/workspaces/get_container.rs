@@ -1,6 +1,8 @@
 use tracing::event;
 
-use crate::{config::CurrentWorkspace, shell::find_pod_by_ws_name::find_pod_by_ws_name};
+use crate::{
+    config::CurrentWorkspace, devfile::lifecycle::find_pod_by_ws_name::find_pod_by_ws_name,
+};
 
 #[tracing::instrument(level = "trace")]
 pub async fn get_workspace_container(current_workspace: CurrentWorkspace) {

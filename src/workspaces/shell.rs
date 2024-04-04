@@ -1,6 +1,7 @@
 use crate::{
     config::CurrentWorkspace,
-    shell::{find_pod_by_ws_name::find_pod_by_ws_name, select_pod, start_it_shell::start_it_shell},
+    devfile::lifecycle::find_pod_by_ws_name::find_pod_by_ws_name,
+    shell::{select_pod, start_it_shell::start_it_shell},
 };
 use k8s_openapi::api::core::v1::Pod;
 use tracing::event;

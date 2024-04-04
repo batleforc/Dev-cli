@@ -1,9 +1,6 @@
 use tracing::event;
 
-use crate::{
-    config::CurrentWorkspace, crd::dev_work_space::DevWorkspace,
-    devfile::lifecycle::start_stop::start_stop_devworkspace,
-};
+use crate::{config::CurrentWorkspace, devfile::lifecycle::start_stop::start_stop_devworkspace};
 
 #[tracing::instrument(level = "trace")]
 pub async fn toggle_workspace(current_workspace: CurrentWorkspace, target_status: bool) {
@@ -17,8 +14,7 @@ pub async fn toggle_workspace(current_workspace: CurrentWorkspace, target_status
         Some(iencli) => iencli,
         None => return,
     };
-    let devworkspace_api = current_workspace.get_api::<DevWorkspace>(client);
-    if start_stop_devworkspace(devworkspace_api, current_workspace.clone(), target_status)
+    if start_stop_devworkspace(client, current_workspace.clone(), target_status)
         .await
         .is_some()
     {

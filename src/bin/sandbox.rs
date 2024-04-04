@@ -19,7 +19,7 @@ pub async fn main() {
         None => return,
     };
     // check if workspace is up by getting the pod
-    let pod = match dev_cli::shell::find_pod_by_ws_name::find_pod_by_ws_name(
+    let pod = match dev_cli::devfile::lifecycle::find_pod_by_ws_name::find_pod_by_ws_name(
         client.clone(),
         current_workspace.clone(),
     )

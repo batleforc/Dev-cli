@@ -1,19 +1,20 @@
 use kube::{
     api::{Patch, PatchParams},
-    Api,
+    Client,
 };
 use serde_json::from_value;
 use tracing::event;
 
 use crate::{config::CurrentWorkspace, crd::dev_work_space::DevWorkspace};
 
-#[tracing::instrument(level = "trace")]
+#[tracing::instrument(level = "trace", skip(client))]
 pub async fn start_stop_devworkspace(
-    devworkspace_api: Api<DevWorkspace>,
+    client: Client,
     current_workspace: CurrentWorkspace,
     running: bool,
 ) -> Option<DevWorkspace> {
-    if let Some(ws_name) = current_workspace.workspace_name {
+    if let Some(ws_name) = current_workspace.workspace_name.clone() {
+        let devworkspace_api = current_workspace.get_api::<DevWorkspace>(client);
         let js_patch = serde_json::json!([{
             "op": "replace",
             "path":"/spec/started",
