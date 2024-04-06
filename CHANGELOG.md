@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [0.5.1](https://github.com/batleforc/dev-cli/compare/f111e9c933a01bd656c90a6e336556ec3af7baa9..0.5.1) - 2024-04-06
+#### Bug Fixes
+- follow good practice by clippy - ([1979a53](https://github.com/batleforc/dev-cli/commit/1979a538784365fa2dfb65aeeddd08838fb42cfc)) - Max
+#### Features
+- update readme - ([f111e9c](https://github.com/batleforc/dev-cli/commit/f111e9c933a01bd656c90a6e336556ec3af7baa9)) - Max
+
+- - -
+
 ## [0.5.0](https://github.com/batleforc/dev-cli/compare/f5f4d2cfc23e002ca75fa2a7c5fa3fe5ed404594..0.5.0) - 2024-04-06
 #### Bug Fixes
 - select what can be short or not (in the arg way) - ([da69711](https://github.com/batleforc/dev-cli/commit/da6971193baff476130e69649cac71a98ea020be)) - max
