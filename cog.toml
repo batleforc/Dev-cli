@@ -1,6 +1,6 @@
 pre_bump_hooks = [
     "echo {{version}}",
-    "cargo bump {{version}} && git add Cargo.toml && git commit -m \"chore(version): set cargo version to {{version}}\"",
+    "cargo audit && cargo bump {{version}} && git add Cargo.toml && git commit -m \"chore(version): set cargo version to {{version}}\"",
 ]
 post_bump_hooks = ["git push", "git push origin {{version}}"]
 
@@ -9,7 +9,7 @@ path = "CHANGELOG.md"
 template = "remote"
 remote = "github.com"
 repository = "dev-cli"
-owner = "batleforc"
+owner = "max"
 authors = [
     { username = "batleforc", signature = "Maxime Leriche" },
     { username = "max", signature = "Maxime Leriche" },

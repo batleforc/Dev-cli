@@ -65,6 +65,7 @@ BUT if you need to make your own here what's needed:
 
 - Rust (latest)
 - [Cargo-bump](https://crates.io/crates/cargo-bump)
+- [Cargo-audit](https://github.com/RustSec/rustsec/tree/main/cargo-audit)
 - [Cocogitto](https://github.com/cocogitto/cocogitto)
 - [GitLeaks](https://github.com/gitleaks/gitleaks)
 
