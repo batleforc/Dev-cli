@@ -1,4 +1,3 @@
-
 pre_bump_hooks = [
     "echo {{version}}",
     "cargo bump {{version}} && git add Cargo.toml && git commit -m \"chore(version): set cargo version to {{version}}\"",
@@ -19,3 +18,11 @@ authors = [
 [bump_profiles]
 
 [packages]
+
+[git_hooks.commit-msg]
+script = """#!/bin/sh
+set -e
+cargo fmt -v --all --check
+cargo clippy
+gitleaks protect --verbose --redact --staged
+"""

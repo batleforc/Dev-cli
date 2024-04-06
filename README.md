@@ -66,6 +66,9 @@ BUT if you need to make your own here what's needed:
 - Rust (latest)
 - [Cargo-bump](https://crates.io/crates/cargo-bump)
 - [Cocogitto](https://github.com/cocogitto/cocogitto)
+- [GitLeaks](https://github.com/gitleaks/gitleaks)
+
+Please do `cog install-hook --all` before your first commit, the hooks include a pre commit that will check for any secret and possible clippy error.
 
 ## CICD ?
 
