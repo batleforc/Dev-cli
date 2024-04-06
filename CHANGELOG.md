@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [0.5.0](https://github.com/batleforc/dev-cli/compare/f5f4d2cfc23e002ca75fa2a7c5fa3fe5ed404594..0.5.0) - 2024-04-06
+#### Bug Fixes
+- select what can be short or not (in the arg way) - ([da69711](https://github.com/batleforc/dev-cli/commit/da6971193baff476130e69649cac71a98ea020be)) - max
+#### Features
+- Setup of the healthcheck workflow ++ rework every tracing to follow the tracing::{kind}!(message) workflow - ([8e3e424](https://github.com/batleforc/dev-cli/commit/8e3e424faeee8d49eb71c6387454ab59d6d66ae5)) - Max
+- add more dock - ([c2abaa1](https://github.com/batleforc/dev-cli/commit/c2abaa173aa5e51eaf9cdc65d5a91bc15e7e7264)) - max
+- Create open_vs_code and ask_if_pod_should_up - ([4d44aec](https://github.com/batleforc/dev-cli/commit/4d44aecf59d34086ba45d678f0d43bfbcc9a52f6)) - Max
+- Extract subfonction - ([d916820](https://github.com/batleforc/dev-cli/commit/d916820b06ed3649a190f31b8a34364c7a6a91f8)) - Max
+- start creating the cmd(and go work on the zorin pc) - ([5af5428](https://github.com/batleforc/dev-cli/commit/5af542869eee4ec81b02e27500763af83c8458ba)) - max
+- select what's needed for the openvscode cmd ++ add fix for healthcheck ++ define that if a command is not provided redirect to help - ([ba004de](https://github.com/batleforc/dev-cli/commit/ba004de7d6cecff032368f843a3bc88d47fad55a)) - max
+- Add a little doc on the activity service used by the che-code extension - ([ba74db1](https://github.com/batleforc/dev-cli/commit/ba74db1a7ebd4113d0add7a3f324552cf1368ad0)) - Max
+- Setup vscode/open_code in the sandbox env (and it work cog) - ([3086add](https://github.com/batleforc/dev-cli/commit/3086addbb0fa32cf9323136e82bf2516deadfaa5)) - Max
+- move to rustsec/audit-check@v1.4.1 - ([6efddf8](https://github.com/batleforc/dev-cli/commit/6efddf8dc662f972addd30e742b3520429dc195d)) - max
+- mise en place audit journalier - ([df208af](https://github.com/batleforc/dev-cli/commit/df208afe07238b0d08a00ae6aa6a6a209e95709c)) - max
+- Start opencode struct - ([0494bcb](https://github.com/batleforc/dev-cli/commit/0494bcbb439377c285d51e64dc0135acfe798dc1)) - max
+- split spawn_shell cmd - ([55b05c1](https://github.com/batleforc/dev-cli/commit/55b05c1c4cfdd8d6a96953cf43e5b2540e9ba497)) - max
+- explain what's done and what's left to do - ([ae3a44a](https://github.com/batleforc/dev-cli/commit/ae3a44afe73021a2251f1023ae2be88291b4dff2)) - max
+- add more info - ([f5f4d2c](https://github.com/batleforc/dev-cli/commit/f5f4d2cfc23e002ca75fa2a7c5fa3fe5ed404594)) - max
+
+- - -
+
 ## [0.4.0](https://github.com/batleforc/dev-cli/compare/02b9bb0b7974df236c355d06c9e19e8b30264545..0.4.0) - 2024-03-26
 #### Features
 - move from full handled to crossterm in order to have a better handle of the terminal workflow (K9s workkkkk) - ([31fa657](https://github.com/batleforc/dev-cli/commit/31fa65783c0ae837e96830de1b5724bd1d3a129f)) - max
