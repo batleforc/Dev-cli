@@ -1,9 +1,6 @@
-use clap::Subcommand;
-use tracing::event;
-
-use crate::config::CurrentWorkspace;
-
 use super::{get, get_container, list, open_vs_code, restart, shell, toggle};
+use crate::config::CurrentWorkspace;
+use clap::Subcommand;
 
 /// Handle the workspaces subcommand
 #[derive(Subcommand)]
@@ -62,38 +59,27 @@ impl WorkSpaces {
         let mut current_workspace = match CurrentWorkspace::try_from_env() {
             Some(workspace) => workspace,
             None => {
-                event!(tracing::Level::ERROR, "Not in a workspace");
+                tracing::error!("Not in a workspace");
                 return;
             }
         };
         if let Some(namespace) = namespace {
             current_workspace.namespace = Some(namespace.clone());
-            event!(tracing::Level::TRACE, "Using namespace: {:?}", namespace);
+            tracing::trace!("Using namespace: {:?}", namespace);
         } else if let Some(namespace) = current_workspace.namespace.clone() {
-            event!(tracing::Level::TRACE, "Using namespace: {:?}", namespace);
+            tracing::trace!("Using namespace: {:?}", namespace);
         } else {
             current_workspace.namespace = None;
-            event!(
-                tracing::Level::TRACE,
-                "No namespace provided, using default namespace."
-            );
+            tracing::trace!("No namespace provided, using default namespace.");
         }
         if let Some(workspace_name) = workspace_name {
             current_workspace.workspace_name = Some(workspace_name.clone());
-            event!(
-                tracing::Level::TRACE,
-                "Using workspace: {:?}",
-                workspace_name
-            );
+            tracing::trace!("Using workspace: {:?}", workspace_name)
         } else if let Some(workspace_name) = current_workspace.workspace_name.clone() {
-            event!(
-                tracing::Level::TRACE,
-                "Using workspace: {:?}",
-                workspace_name
-            );
+            tracing::trace!("Using workspace: {:?}", workspace_name);
         } else {
             current_workspace.workspace_name = None;
-            event!(tracing::Level::TRACE, "Using no workspace_name.");
+            tracing::trace!("No workspace_name provided.");
         }
         match self {
             WorkSpaces::Get {} => get::get_current_workspace(current_workspace).await,
@@ -115,11 +101,7 @@ impl WorkSpaces {
                     shell::spawn_shell(current_workspace, name.clone(), shell_content.to_string())
                         .await
                 {
-                    event!(
-                        tracing::Level::ERROR,
-                        ?err,
-                        "Unhandled error from crossterm or other"
-                    );
+                    tracing::error!(?err, "Unhandled error from crossterm or other");
                 }
             }
             WorkSpaces::OpenVsCode {

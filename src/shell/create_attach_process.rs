@@ -1,7 +1,6 @@
 use k8s_openapi::api::core::v1::Pod;
 use kube::api::AttachedProcess;
 use kube::{api::AttachParams, Api};
-use tracing::event;
 
 #[tracing::instrument(level = "trace")]
 pub async fn create_attach_process(
@@ -15,15 +14,11 @@ pub async fn create_attach_process(
         .await
     {
         Ok(attached_process) => {
-            event!(tracing::Level::TRACE, "Success createing remote process");
+            tracing::trace!("Success createing remote process");
             Ok(attached_process)
         }
         Err(err) => {
-            event!(
-                tracing::Level::ERROR,
-                ?err,
-                "Error while creating remote process"
-            );
+            tracing::error!(?err, "Error while creating remote process");
             Err(())
         }
     }

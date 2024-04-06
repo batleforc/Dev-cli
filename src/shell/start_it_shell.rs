@@ -3,7 +3,6 @@ use futures::StreamExt;
 use k8s_openapi::api::core::v1::Pod;
 use kube::{api::AttachParams, Api};
 use tokio::{io::AsyncWriteExt, select};
-use tracing::event;
 
 #[tracing::instrument(level = "trace")]
 pub async fn start_it_shell(
@@ -54,15 +53,12 @@ pub async fn start_it_shell(
             },
             result = &mut handle_terminal_size_handle => {
                 match result {
-                    Ok(status) => event!(
-                        tracing::Level::INFO,
-                        ?status,
-                        "End of terminal size stream"
-                    ),
-                    Err(e) => event!(
-                        tracing::Level::ERROR,
-                        "Error getting terminal size: {e:?}"
-                    )
+                    Ok(status) => {
+                        tracing::info!(?status,"End of terminal size stream");
+                    },
+                    Err(e) => {
+                        tracing::error!(?e,"Error while handling terminal size");
+                    }
                 }
             },
         };

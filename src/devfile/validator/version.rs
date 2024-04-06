@@ -1,7 +1,6 @@
 use jsonschema::JSONSchema;
 use serde::Deserialize;
 use serde_yaml::Value;
-use tracing::event;
 
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Debug)]
 pub enum DevFileVersion {
@@ -23,25 +22,21 @@ impl DevFileVersion {
                     match serde_json::from_str(&version.get_def()) {
                         Ok(val) => val,
                         Err(err) => {
-                            event!(tracing::Level::ERROR, "Couldn't load schema : {:?}", err);
+                            tracing::error!(?err, "Couldn't parse schema",);
                             return None;
                         }
                     };
                 let compiled = match JSONSchema::compile(&dev_file_value) {
                     Ok(validator) => validator,
                     Err(err) => {
-                        event!(
-                            tracing::Level::ERROR,
-                            "Couldn't load jsonschema : {:?}",
-                            err
-                        );
+                        tracing::error!(?err, "Couldn't compile schema");
                         return None;
                     }
                 };
                 let json_value: serde_json::Value = match serde_yaml::from_str(&yaml) {
                     Ok(yaml_to_json) => yaml_to_json,
                     Err(err) => {
-                        event!(tracing::Level::ERROR, "Couldn't parse to json : {:?}", err);
+                        tracing::error!(?err, "Couldn't parse to json");
                         return None;
                     }
                 };
@@ -49,7 +44,7 @@ impl DevFileVersion {
                 match result {
                     Ok(_) => Some(version),
                     Err(_) => {
-                        event!(tracing::Level::ERROR, "Couldn't validate yaml");
+                        tracing::error!("Couldn't validate yaml");
                         return None;
                     }
                 }
@@ -75,50 +70,44 @@ impl DevFileVersion {
         let dev_file_value = match Value::deserialize(dev_file) {
             Ok(val) => val,
             Err(err) => {
-                event!(tracing::Level::ERROR, "Couldn't parse : {:?}", err);
+                tracing::error!(?err, "Couldn't parse yaml");
                 return None;
             }
         };
         let schema_version = match dev_file_value.get("schemaVersion") {
             Some(version) => version.as_str(),
             None => {
-                event!(
-                    tracing::Level::ERROR,
-                    "No schemaVersion found, invalid devfile"
-                );
+                tracing::error!("No schemaVersion found, invalid devfile");
                 return None;
             }
         };
         match schema_version {
             Some("2.0.0") => {
-                event!(tracing::Level::TRACE, "Found : 2.0.0");
+                tracing::trace!("Found : 2.0.0");
                 Some(DevFileVersion::V200)
             }
             Some("2.1.0") => {
-                event!(tracing::Level::TRACE, "Found : 2.1.0");
+                tracing::trace!("Found : 2.1.0");
                 Some(DevFileVersion::V210)
             }
             Some("2.2.0") => {
-                event!(tracing::Level::TRACE, "Found : 2.2.0");
+                tracing::trace!("Found : 2.2.0");
                 Some(DevFileVersion::V220)
             }
             Some("2.2.1") => {
-                event!(tracing::Level::TRACE, "Found : 2.2.1");
+                tracing::trace!("Found : 2.2.1");
                 Some(DevFileVersion::V221)
             }
             Some("2.2.2") => {
-                event!(tracing::Level::TRACE, "Found : 2.2.2");
+                tracing::trace!("Found : 2.2.2");
                 Some(DevFileVersion::V222)
             }
             Some(ver) => {
-                event!(tracing::Level::ERROR, "Unknown version : {}", ver);
+                tracing::error!("Unknown version : {}", ver);
                 None
             }
             None => {
-                event!(
-                    tracing::Level::ERROR,
-                    "Invalid version format, should be a string"
-                );
+                tracing::error!("Invalid version format, should be a string");
                 None
             }
         }

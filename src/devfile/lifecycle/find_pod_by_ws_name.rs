@@ -1,6 +1,5 @@
 use k8s_openapi::api::core::v1::Pod;
 use kube::{api::ListParams, Client};
-use tracing::event;
 
 use crate::config::CurrentWorkspace;
 
@@ -17,22 +16,22 @@ pub async fn find_pod_by_ws_name(
     }
     let list_pod = match pods.list(&lp).await {
         Ok(list) => {
-            event!(tracing::Level::TRACE, ?list, "Got List of pod from kube");
+            tracing::trace!(?list, "Got List of pod from kube");
             list
         }
         Err(err) => {
-            event!(tracing::Level::ERROR, ?err, "Couldn't get pods");
+            tracing::error!(?err, "Couldn't get pods");
             return None;
         }
     };
 
     match list_pod.into_iter().next() {
         Some(pod) => {
-            event!(tracing::Level::TRACE, "Pod found");
+            tracing::trace!(?pod, "Pod found");
             Some(pod)
         }
         None => {
-            event!(tracing::Level::ERROR, "No pods in list");
+            tracing::error!("No pods in list");
             None
         }
     }

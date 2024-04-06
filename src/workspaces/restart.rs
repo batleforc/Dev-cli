@@ -1,5 +1,3 @@
-use tracing::event;
-
 use crate::{
     config::CurrentWorkspace,
     crd::dev_work_space::DevWorkspace,
@@ -9,8 +7,7 @@ use crate::{
 #[tracing::instrument(level = "trace")]
 pub async fn restart_workspace(current_workspace: CurrentWorkspace, wait: bool) {
     if current_workspace.is_in_pod() {
-        event!(
-            tracing::Level::ERROR,
+        tracing::error!(
             "You can't restart your current workspace from the inside of the workspaces"
         );
         return;
@@ -23,10 +20,10 @@ pub async fn restart_workspace(current_workspace: CurrentWorkspace, wait: bool) 
         .await
         .is_none()
     {
-        event!(tracing::Level::ERROR, "Could not restart workspace");
+        tracing::error!("Could not restart workspace");
         return;
     } else {
-        event!(tracing::Level::TRACE, "Workspace stopped");
+        tracing::trace!("Workspace stopped");
     }
     let ws_name = current_workspace.workspace_name.clone().unwrap();
     let devworkspace_api = current_workspace.get_api::<DevWorkspace>(client.clone());
@@ -46,7 +43,9 @@ pub async fn restart_workspace(current_workspace: CurrentWorkspace, wait: bool) 
         .await
         .is_some()
     {
-        event!(tracing::Level::INFO, "Workspace restarting");
+        tracing::info!("Workspace restarting");
+    } else {
+        return;
     }
     if wait
         && wait_for_status(
@@ -59,6 +58,6 @@ pub async fn restart_workspace(current_workspace: CurrentWorkspace, wait: bool) 
         .await
         .is_some()
     {
-        event!(tracing::Level::INFO, "Workspace restarted");
+        tracing::info!("Workspace restarted");
     }
 }

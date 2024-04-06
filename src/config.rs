@@ -1,8 +1,6 @@
-use std::fmt::Debug;
-
 use k8s_openapi::NamespaceResourceScope;
 use kube::{client, Api, Client, Resource};
-use tracing::event;
+use std::fmt::Debug;
 
 #[derive(Clone)]
 pub struct CurrentWorkspace {
@@ -38,15 +36,11 @@ impl CurrentWorkspace {
     pub async fn get_client(&self) -> Option<Client> {
         match client::Client::try_default().await {
             Ok(iencli) => {
-                event!(tracing::Level::TRACE, "Kube client created");
+                tracing::trace!("Kube client created");
                 Some(iencli)
             }
             Err(err) => {
-                event!(
-                    tracing::Level::ERROR,
-                    "Could not instanciate kube Client : {:?}",
-                    err
-                );
+                tracing::error!("Could not instanciate kube Client : {:?}", err);
                 None
             }
         }

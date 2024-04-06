@@ -3,7 +3,7 @@ use dev_cli::{
     trace::{self, level::VerboseLevel},
     workspaces::command::WorkSpaces,
 };
-use tracing::{event, Level};
+use tracing::Level;
 
 #[derive(Parser)]
 #[command(name = "DevCli", about = "A simple cli to ease the dev process with EclipseChe/Devspaces", long_about = None, version, arg_required_else_help = true)]
@@ -22,10 +22,6 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    Test {
-        #[arg(short, long)]
-        list: bool,
-    },
     Workspaces {
         #[command(subcommand)]
         workspace: Option<WorkSpaces>,
@@ -53,13 +49,6 @@ async fn main() {
     trace::init::init_tracing(debug_level, cli.trace);
 
     match &cli.command {
-        Some(Commands::Test { list }) => {
-            if *list {
-                event!(Level::INFO, "Printing list");
-            } else {
-                event!(Level::INFO, "Not printing list");
-            }
-        }
         Some(Commands::Workspaces {
             workspace,
             namespace,
@@ -72,6 +61,6 @@ async fn main() {
             }
         }
 
-        None => event!(Level::INFO, "No command provided"),
+        None => tracing::info!("No command provided"),
     }
 }

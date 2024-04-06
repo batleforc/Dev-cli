@@ -1,7 +1,6 @@
 use crate::crd::dev_work_space::DevWorkspace;
 use kube::Api;
 use tokio::time::{sleep, Duration};
-use tracing::event;
 
 pub async fn wait_for_status(
     devworkspace_api: Api<DevWorkspace>,
@@ -16,7 +15,7 @@ pub async fn wait_for_status(
         let ws = match devworkspace_api.get(&ws_name).await {
             Ok(ws) => ws,
             Err(e) => {
-                event!(tracing::Level::ERROR, "Could not get workspace: {}", e);
+                tracing::error!(?e, "Could not get workspace");
                 return None;
             }
         };
@@ -26,10 +25,10 @@ pub async fn wait_for_status(
             }
         }
         if retry >= nb_retry {
-            event!(
-                tracing::Level::ERROR,
-                "Could not get workspace to status {}",
-                target_status
+            tracing::error!(
+                "Could not get workspace to status {} after {} retries",
+                target_status,
+                retry
             );
             return None;
         }

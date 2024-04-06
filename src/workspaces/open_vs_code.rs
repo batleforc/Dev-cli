@@ -1,3 +1,5 @@
+use crate::shell::select_pod::select_pod;
+use crate::vscode::healthcheck;
 use crate::{
     devfile::lifecycle::ask_if_pod_should_up::ask_if_pod_should_up,
     workspaces::open_vs_code::wait_for_status::wait_for_status,
@@ -15,7 +17,7 @@ use crate::{
 #[tracing::instrument(level = "trace")]
 pub async fn open_vs_code(
     current_workspace: CurrentWorkspace,
-    container_name: Option<String>,
+    mut container_name: Option<String>,
     port: u16,
     path: String,
     context: Option<String>,
@@ -53,6 +55,7 @@ pub async fn open_vs_code(
             }
         }
     };
+    container_name = select_pod(container_name, pod.clone());
 
     let open_code = crate::vscode::open_code::OpenCode {
         context,
@@ -68,6 +71,5 @@ pub async fn open_vs_code(
         path: Some(path),
     };
     open_code.open();
-
-    // TODO: call the health check function
+    healthcheck::healthcheck(client, current_workspace, pod.metadata.name.unwrap(), port).await;
 }

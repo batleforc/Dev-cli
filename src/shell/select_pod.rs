@@ -1,5 +1,4 @@
 use k8s_openapi::api::core::v1::Pod;
-use tracing::event;
 
 #[tracing::instrument(level = "trace")]
 pub fn select_pod(target_name: Option<String>, pod: Pod) -> Option<String> {
@@ -13,8 +12,7 @@ pub fn select_pod(target_name: Option<String>, pod: Pod) -> Option<String> {
                 .into_iter()
                 .any(|c| c.name == container_named)
             {
-                event!(
-                    tracing::Level::ERROR,
+                tracing::error!(
                     "Pod does not have container : {}",
                     container_named.to_string()
                 );
@@ -24,18 +22,11 @@ pub fn select_pod(target_name: Option<String>, pod: Pod) -> Option<String> {
         }
         None => match pod.spec.unwrap().containers.first() {
             Some(container) => {
-                event!(
-                    tracing::Level::INFO,
-                    "Using first container : {}",
-                    container.name.to_string()
-                );
+                tracing::info!("Using first container : {}", container.name.to_string());
                 Some(container.name.to_string())
             }
             None => {
-                event!(
-                    tracing::Level::ERROR,
-                    "No container in the pod ? what did you do?"
-                );
+                tracing::error!("No container in the pod ? what did you do?");
                 return None;
             }
         },

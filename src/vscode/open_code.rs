@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use std::process::Command;
-use tracing::event;
 use url::form_urlencoded::byte_serialize;
 
 #[derive(Clone, Default, Debug, Serialize, Deserialize)]
@@ -44,11 +43,7 @@ impl OpenCode {
     #[tracing::instrument(level = "trace")]
     pub fn open(&self) {
         let path = self.generate_path();
-        event!(
-            tracing::Level::TRACE,
-            "Opening VsCode with path: {:?}",
-            path
-        );
+        tracing::trace!("Opening VsCode with path: {:?}", path);
         let output = if cfg!(target_os = "windows") {
             Command::new("cmd")
                 .args(["/C", &format!("code --folder-uri {}", path)])
@@ -63,6 +58,6 @@ impl OpenCode {
         };
 
         let hello = output.stdout;
-        event!(tracing::Level::TRACE, "output: {:?}", hello);
+        tracing::trace!("output: {:?}", hello);
     }
 }

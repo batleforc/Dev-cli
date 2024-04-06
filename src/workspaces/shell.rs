@@ -4,7 +4,6 @@ use crate::{
     shell::{select_pod, start_it_shell::start_it_shell},
 };
 use k8s_openapi::api::core::v1::Pod;
-use tracing::event;
 
 #[tracing::instrument(level = "trace")]
 pub async fn spawn_shell(
@@ -19,7 +18,7 @@ pub async fn spawn_shell(
     let pod = match find_pod_by_ws_name(client.clone(), current_workspace.clone()).await {
         Some(pod) => pod,
         None => {
-            event!(tracing::Level::ERROR, "Pod's not found");
+            tracing::error!("Pod's not found");
             return Ok(());
         }
     };

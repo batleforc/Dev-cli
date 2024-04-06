@@ -1,5 +1,3 @@
-use tracing::event;
-
 use crate::{
     config::CurrentWorkspace, devfile::lifecycle::find_pod_by_ws_name::find_pod_by_ws_name,
 };
@@ -13,12 +11,11 @@ pub async fn get_workspace_container(current_workspace: CurrentWorkspace) {
     let pod = match find_pod_by_ws_name(client, current_workspace.clone()).await {
         Some(pod) => pod,
         None => {
-            event!(tracing::Level::ERROR, "Pod's not found");
+            tracing::error!("Pod's not found");
             return;
         }
     };
-    event!(
-        tracing::Level::INFO,
+    tracing::info!(
         "Pod: {:?} => {:?} ",
         pod.metadata.name.unwrap(),
         pod.spec

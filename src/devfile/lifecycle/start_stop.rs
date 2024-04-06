@@ -3,7 +3,6 @@ use kube::{
     Client,
 };
 use serde_json::from_value;
-use tracing::event;
 
 use crate::{config::CurrentWorkspace, crd::dev_work_space::DevWorkspace};
 
@@ -28,16 +27,16 @@ pub async fn start_stop_devworkspace(
             .await;
         match res {
             Ok(ws) => {
-                event!(tracing::Level::TRACE, ?ws, "ws updated");
+                tracing::trace!(?ws, "ws updated");
                 Some(ws)
             }
             Err(err) => {
-                event!(tracing::Level::ERROR, ?err, "Couldn't update ws");
+                tracing::error!(?err, "Couldn't update ws");
                 None
             }
         }
     } else {
-        event!(tracing::Level::ERROR, "Please select a devworkspace");
+        tracing::error!("No devworkspace selected");
         None
     }
 }
