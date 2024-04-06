@@ -6,7 +6,7 @@ use kube::Client;
 use tokio::time::Duration;
 use tokio_util::bytes::Bytes;
 
-const ACTIVITY_INTERVAL_MS: u64 = 1 * 60 * 1000; // 1 minute
+const ACTIVITY_INTERVAL_MS: u64 = 60 * 1000; // 1 minute
 
 // Now we can open workspace in vscode through the open_code module.
 // But the goal of the next part is to prevent the workspace from closing from the lack of activity.
@@ -60,7 +60,6 @@ pub async fn healthcheck(
         tokio::spawn(async move {
             if let Err(e) = connection.await {
                 tracing::error!(?e, "Error in connection");
-                return;
             } else {
                 tracing::trace!("Connection closed");
             }
@@ -71,7 +70,7 @@ pub async fn healthcheck(
             }
             Err(err) => {
                 tracing::error!(?err, "Could not send request");
-                return;
+                break;
             }
         };
     }
