@@ -15,8 +15,6 @@ components:
     container:
       image: harbor.weebo.fr/batleforc/che-rust:latest
       memoryLimit: 8Gi
-      command: ["tail"]
-      args: ["-f", "/dev/null"]
       mountSources: true
       env:
         - name: RUST_ENV
